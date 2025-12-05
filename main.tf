@@ -26,10 +26,10 @@ resource "aws_internet_gateway" "igw" {
 # Public Subnet
 # ---------------------------
 resource "aws_subnet" "public_subnet" {
-  vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = var.public_subnet_cidr
+  vpc_id                  = aws_vpc.my_vpc.id
+  cidr_block              = var.public_subnet_cidr
   map_public_ip_on_launch = true
-  availability_zone = "${var.aws_region}a"
+  availability_zone       = "${var.aws_region}a"
 
   tags = {
     Name = "Public-Subnet-Exlearn-B15-CICD"
@@ -40,10 +40,10 @@ resource "aws_subnet" "public_subnet" {
 # Private Subnet
 # ---------------------------
 resource "aws_subnet" "private_subnet" {
-  vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = var.private_subnet_cidr
+  vpc_id                  = aws_vpc.my_vpc.id
+  cidr_block              = var.private_subnet_cidr
   map_public_ip_on_launch = false
-  availability_zone = "${var.aws_region}a"
+  availability_zone       = "${var.aws_region}a"
 
   tags = {
     Name = "Private-Subnet-Exlearn-B15-CICD"
