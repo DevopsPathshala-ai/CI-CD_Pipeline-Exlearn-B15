@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Init') {
+            steps {
+                sh '''
+                    terraform init \
+                    -backend-config="bucket=mytestbucket-mangesh" \
+                    -backend-config="region=ap-south-1" \
+                    -backend-config="key=terraform.tfstate"
+                '''
+            }
+        }
+
+        stage('Destroy') {
+            steps {
+                sh '''
+                    terraform destroy -auto-approve
+                '''
+            }
+        }
+    }
+}
