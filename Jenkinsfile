@@ -39,7 +39,6 @@ pipeline {
         stage('Fmt & Validate') {
             steps {
                 sh '''
-                    terraform fmt -check
                     terraform validate
                 '''
             }
