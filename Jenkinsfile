@@ -27,8 +27,8 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 sh '''
-                    export AWS_ACCESS_KEY_ID=${AWS_CREDS_USR}
-                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS_PSW}
+                    export AWS_ACCESS_KEY_ID=${AWS_CREDS}
+                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS}
 
                     terraform init \
                         -backend-config="bucket=${TF_BACKEND_BUCKET}" \
@@ -52,8 +52,8 @@ pipeline {
         stage('Plan') {
             steps {
                 sh '''
-                    export AWS_ACCESS_KEY_ID=${AWS_CREDS_USR}
-                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS_PSW}
+                    export AWS_ACCESS_KEY_ID=${AWS_CREDS}
+                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS}
 
                     terraform plan  -out=tfplan
                 '''
@@ -68,8 +68,8 @@ pipeline {
         stage('Apply') {
             steps {
                 sh '''
-                    export AWS_ACCESS_KEY_ID=${AWS_CREDS_USR}
-                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS_PSW}
+                    export AWS_ACCESS_KEY_ID=${AWS_CREDS}
+                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS}
 
                     terraform apply -input=false tfplan
                 '''
