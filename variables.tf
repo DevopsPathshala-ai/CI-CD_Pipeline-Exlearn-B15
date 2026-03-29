@@ -21,3 +21,11 @@ variable "private_subnet_cidr" {
   type        = string
   default     = "10.1.2.0/24"
 }
+variable "ami" {
+  type = string
+  default = "ami-0931307dcdc2a28c9"
+}
+variable "instance_type" {
+  type = string
+  default = "t2.micro"
+}
