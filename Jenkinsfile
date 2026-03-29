@@ -30,11 +30,13 @@ pipeline {
                     export AWS_ACCESS_KEY_ID=${AWS_CREDS_USR}
                     export AWS_SECRET_ACCESS_KEY=${AWS_CREDS_PSW}
 
-                    terraform init -input=false \
-                      -backend-config="bucket=${TF_BACKEND_BUCKET}" \
-                      -backend-config="region=${TF_REGION}" \
-                      -backend-config="key=${TF_BACKEND_KEY}" \
-                      -backend-config="dynamodb_table=${TF_DDB_TABLE}"
+                    terraform init \
+                        -backend-config="bucket=${TF_BACKEND_BUCKET}" \
+                        -backend-config="key=${TF_BACKEND_KEY}" \
+                        -backend-config="region=${TF_REGION}" \
+                        -backend-config="dynamodb_table=${TF_DDB_TABLE}" \
+                        -backend-config="encrypt=true"
+
                 '''
             }
         }
