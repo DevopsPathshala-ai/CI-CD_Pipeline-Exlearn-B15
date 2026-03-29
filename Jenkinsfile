@@ -55,7 +55,6 @@ pipeline {
                     export AWS_SECRET_ACCESS_KEY=${AWS_CREDS_PSW}
 
                     terraform plan -input=false \
-                        -var-file=environments/dev.tfvars \
                         -out=tfplan
                 '''
             }
