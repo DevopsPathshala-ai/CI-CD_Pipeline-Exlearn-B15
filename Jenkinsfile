@@ -34,7 +34,6 @@ pipeline {
                         -backend-config="bucket=${TF_BACKEND_BUCKET}" \
                         -backend-config="key=${TF_BACKEND_KEY}" \
                         -backend-config="region=${TF_REGION}" \
-                        -backend-config="dynamodb_table=${TF_DDB_TABLE}" \
                         -backend-config="encrypt=true"
 
                 '''
