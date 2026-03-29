@@ -2,11 +2,8 @@ pipeline {
     agent any
 
     environment {
-       
-        AWS_CREDS           = credentials('aws-creds')
         GIT_TOKEN           = credentials('github-token')
 
-       
         TF_BACKEND_BUCKET   = "mytestbucket-mangesh"
         TF_REGION           = "ap-south-1"
         TF_BACKEND_KEY      = "terraform.tfstate"
@@ -16,27 +13,26 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                script {
-                    git url: "https://github.com/DevopsPathshala-ai/CI-CD_Pipeline-Exlearn-B15.git",
-                        credentialsId: 'github-token',
-                        branch: 'main'
-                }
+                git url: "https://github.com/DevopsPathshala-ai/CI-CD_Pipeline-Exlearn-B15.git",
+                    credentialsId: 'github-token',
+                    branch: 'main'
             }
         }
 
         stage('Terraform Init') {
             steps {
-                sh '''
-                    export AWS_ACCESS_KEY_ID=${AWS_CREDS}
-                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS}
-
-                    terraform init \
-                        -backend-config="bucket=${TF_BACKEND_BUCKET}" \
-                        -backend-config="key=${TF_BACKEND_KEY}" \
-                        -backend-config="region=${TF_REGION}" \
-                        -backend-config="encrypt=true"
-
-                '''
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-creds'
+                ]]) {
+                    sh '''
+                        terraform init \
+                          -backend-config="bucket=${TF_BACKEND_BUCKET}" \
+                          -backend-config="key=${TF_BACKEND_KEY}" \
+                          -backend-config="region=${TF_REGION}" \
+                          -backend-config="encrypt=true"
+                    '''
+                }
             }
         }
 
@@ -51,12 +47,14 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh '''
-                    export AWS_ACCESS_KEY_ID=${AWS_CREDS}
-                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS}
-
-                    terraform plan  -out=tfplan
-                '''
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-creds'
+                ]]) {
+                    sh '''
+                        terraform plan -out=tfplan
+                    '''
+                }
             }
             post {
                 success {
@@ -67,12 +65,14 @@ pipeline {
 
         stage('Apply') {
             steps {
-                sh '''
-                    export AWS_ACCESS_KEY_ID=${AWS_CREDS}
-                    export AWS_SECRET_ACCESS_KEY=${AWS_CREDS}
-
-                    terraform apply -input=false tfplan
-                '''
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-creds'
+                ]]) {
+                    sh '''
+                        terraform apply -input=false tfplan
+                    '''
+                }
             }
         }
     }
