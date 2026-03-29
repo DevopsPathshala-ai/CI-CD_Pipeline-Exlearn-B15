@@ -61,7 +61,11 @@ pipeline {
                 }
             }
         }
-
+        stage('Plan Approval') {
+            steps {
+                input message: 'Approve Terraform Plan?'
+            }
+        }
         stage('Apply') {
             steps {
                 withCredentials([[
