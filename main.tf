@@ -7,7 +7,7 @@ resource "aws_vpc" "my_vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "My-VPC-Exlearn-B15-CICD"
+    Name = "My-VPC-3RI-CICD"
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.my_vpc.id
 
   tags = {
-    Name = "My-IGW-Exlearn-B15-CICD"
+    Name = "My-IGW-3RI-CICD"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = "${var.aws_region}a"
 
   tags = {
-    Name = "Public-Subnet-Exlearn-B15-CICD"
+    Name = "Public-Subnet-3RI-CICD"
   }
 }
 
@@ -46,7 +46,7 @@ resource "aws_subnet" "private_subnet" {
   availability_zone       = "${var.aws_region}a"
 
   tags = {
-    Name = "Private-Subnet-Exlearn-B15-CICD"
+    Name = "Private-Subnet-3RI-CICD"
   }
 }
 
@@ -57,7 +57,7 @@ resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.my_vpc.id
 
   tags = {
-    Name = "Public-RT-Exlearn-B15-CICD"
+    Name = "Public-RT-3RI-CICD"
   }
 }
 
@@ -81,7 +81,7 @@ resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.my_vpc.id
 
   tags = {
-    Name = "Private-RT-Exlearn-B15-CICD"
+    Name = "Private-RT-3RI-CICD"
   }
 }
 
