@@ -4,7 +4,7 @@ pipeline {
     environment {
         GIT_TOKEN           = credentials('github-token')
 
-        TF_BACKEND_BUCKET   = "mytestbucket-mangesh"
+        TF_BACKEND_BUCKET   = "mytestbucket-mangesh1234"
         TF_REGION           = "ap-south-1"
         TF_BACKEND_KEY      = "terraform.tfstate"
     }
